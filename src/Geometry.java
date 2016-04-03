@@ -6,7 +6,7 @@ import java.util.List;
  */
 public class Geometry {
     private String type;
-    private List<List<List<Double>>> coordinates = new ArrayList<List<List<Double>>>();
+    private List coordinates = new ArrayList<>();
 
 
     public Geometry() {
@@ -17,7 +17,7 @@ public class Geometry {
      * @param type
      * @param coordinates
      */
-    public Geometry(String type, List<List<List<Double>>> coordinates) {
+    public Geometry(String type, List coordinates) {
         this.type = type;
         this.coordinates = coordinates;
     }
@@ -45,8 +45,16 @@ public class Geometry {
      * @return
      *     The coordinates
      */
-    public List<List<List<Double>>> getCoordinates() {
+    public List getCoordinates() {
         return coordinates;
+    }
+
+    @Override
+    public String toString() {
+        return "Geometry{" +
+                "type='" + type + '\'' +
+                ", coordinates=" + coordinates +
+                '}';
     }
 
     /**
@@ -54,7 +62,7 @@ public class Geometry {
      * @param coordinates
      *     The coordinates
      */
-    public void setCoordinates(List<List<List<Double>>> coordinates) {
+    public void setCoordinates(List coordinates) {
         this.coordinates = coordinates;
     }
 

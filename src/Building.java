@@ -8,6 +8,17 @@ public class Building {
     private Geometry geometry;
     private String type;
     private Properties properties;
+
+    @Override
+    public String toString() {
+        return "Building{" +
+                "geometry=" + geometry +
+                ", type='" + type + '\'' +
+                ", properties=" + properties +
+                ", additionalProperties=" + additionalProperties +
+                '}';
+    }
+
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**

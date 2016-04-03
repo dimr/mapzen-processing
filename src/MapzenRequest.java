@@ -1,8 +1,10 @@
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -10,6 +12,8 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by dimitris on 4/3/16.
@@ -17,7 +21,7 @@ import java.io.IOException;
 public class MapzenRequest {
 
     public static void main(String[] r) throws IOException {
-        MapzenUrl url = new MapzenUrlBuilder().setLongitude(-122.409531f).setLatitude(37.782281f).setZoom(16).setLayer("buildings").setKey("vector-tiles-PADQnWp").buildUrl();
+        MapzenUrl url = new MapzenUrlBuilder().setLongitude(-122.409531f).setLatitude(37.782281f).setZoom(16).setLayer("buildings").setLayer("roads").setKey("vector-tiles-PADQnWp").buildUrl();
         System.out.println("LAYERS: " + url.getLayer());
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpGet httpget = new HttpGet(url.toString());
@@ -28,29 +32,39 @@ public class MapzenRequest {
         response.close();
 
         ObjectMapper mapper = new ObjectMapper();
+        TypeFactory typeFactory = mapper.getTypeFactory();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         JsonNode actualObj = mapper.readTree(entity.toString());
 //            System.out.println(actualObj);
         JsonFactory factory = new JsonFactory();
         JsonParser propertiesParser, geometryParser = null;
+        List<Building> buildings = null;
         if (url.getLayers().size() == 1) {
             //System.out.println(actualObj.get("features"));
             JsonNode features = actualObj.get("features");
-            if (features.isArray()) {
-                for (JsonNode o : features) {
-//                    System.out.println(o.get("properties"));
-//                    System.out.println(o.get("properties"));
-                    propertiesParser=factory.createParser(o.get("properties").toString());
-                    mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-                    Properties p = mapper.readValue(propertiesParser,Properties.class);
-                   System.out.println(p.toString());
-                    if (o.get("geometry").get("type").textValue().equals("Polygon")) {
-                        geometryParser = factory.createParser(o.get("geometry").toString());
-                         Geometry gg=mapper.readValue(geometryParser,Geometry.class);
-//                        System.out.println(gg.getCoordinates());
-                    }
-//                    System.out.println(p.toString()+" "+o.get("geometry"));
-                }
+            System.out.println(features);
+
+            for (JsonNode o : features) {
+
+                buildings = mapper.readValue(features.toString(), new TypeReference<List<Building>>() {
+                });
             }
+//            if (features.isArray()) {
+//                for (JsonNode o : features) {
+////                    System.out.println(o.get("properties"));
+////                    System.out.println(o.get("properties"));
+//                    propertiesParser=factory.createParser(o.get("properties").toString());
+//                    mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+//                    Properties p = mapper.readValue(propertiesParser,Properties.class);
+//                   System.out.println(p.toString());
+//                    if (o.get("geometry").get("type").textValue().equals("Polygon")) {
+//                        geometryParser = factory.createParser(o.get("geometry").toString());
+//                         Geometry gg=mapper.readValue(geometryParser,Geometry.class);
+////                        System.out.println(gg.getCoordinates());
+//                    }
+////                    System.out.println(p.toString()+" "+o.get("geometry"));
+//                }
+//            }
 
 
         } else {
@@ -66,5 +80,8 @@ public class MapzenRequest {
             }
         }
 
+        for (Building b : buildings) {
+            System.out.println(b.getGeometry().getCoordinates().get(0));
+        }
     }
 }
