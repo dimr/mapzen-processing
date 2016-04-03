@@ -1,3 +1,6 @@
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -14,7 +17,7 @@ import java.io.IOException;
 public class MapzenRequest {
 
     public static void main(String[] r) throws IOException {
-        MapzenUrl url = new MapzenUrlBuilder().setLongitude(-122.409531f).setLatitude(37.782281f).setZoom(16).setLayer("buildings").setLayer("roads").setKey("vector-tiles-PADQnWp").buildUrl();
+        MapzenUrl url = new MapzenUrlBuilder().setLongitude(-122.409531f).setLatitude(37.782281f).setZoom(16).setLayer("buildings").setKey("vector-tiles-PADQnWp").buildUrl();
         System.out.println("LAYERS: " + url.getLayer());
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpGet httpget = new HttpGet(url.toString());
@@ -27,14 +30,25 @@ public class MapzenRequest {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode actualObj = mapper.readTree(entity.toString());
 //            System.out.println(actualObj);
+        JsonFactory factory= new JsonFactory();
+        JsonParser parser=null;
         if (url.getLayers().size() == 1) {
-            System.out.println(actualObj.get("features"));
+            System.out.println(actualObj.get("features").get(1).get("properties"));
+            parser=factory.createParser(actualObj.get("features").get(2).get("properties").toString());
+            mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+            Properties p = mapper.readValue(parser,Properties.class);
+            System.out.println(p.toString());
+            
         } else {
 //            System.out.println(actualObj.get("roads"));
 //            System.out.println(actualObj.get("buildings"));
             for (String l : url.getLayers()) {
                 System.out.println("--"+l);
                 System.out.println(actualObj.get(l).get("features").get(0).get("properties"));
+                parser=factory.createParser(actualObj.get(l).get("features").get(0).get("properties").toString());
+                mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+                Properties p = mapper.readValue(parser,Properties.class);
+                System.out.println(p.toString());
             }
         }
 
