@@ -30,24 +30,38 @@ public class MapzenRequest {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode actualObj = mapper.readTree(entity.toString());
 //            System.out.println(actualObj);
-        JsonFactory factory= new JsonFactory();
-        JsonParser parser=null;
+        JsonFactory factory = new JsonFactory();
+        JsonParser propertiesParser, geometryParser = null;
         if (url.getLayers().size() == 1) {
-            System.out.println(actualObj.get("features").get(1).get("properties"));
-            parser=factory.createParser(actualObj.get("features").get(2).get("properties").toString());
-            mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-            Properties p = mapper.readValue(parser,Properties.class);
-            System.out.println(p.toString());
-            
+            //System.out.println(actualObj.get("features"));
+            JsonNode features = actualObj.get("features");
+            if (features.isArray()) {
+                for (JsonNode o : features) {
+//                    System.out.println(o.get("properties"));
+//                    System.out.println(o.get("properties"));
+                    propertiesParser=factory.createParser(o.get("properties").toString());
+                    mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+                    Properties p = mapper.readValue(propertiesParser,Properties.class);
+                   System.out.println(p.toString());
+                    if (o.get("geometry").get("type").textValue().equals("Polygon")) {
+                        geometryParser = factory.createParser(o.get("geometry").toString());
+                         Geometry gg=mapper.readValue(geometryParser,Geometry.class);
+//                        System.out.println(gg.getCoordinates());
+                    }
+//                    System.out.println(p.toString()+" "+o.get("geometry"));
+                }
+            }
+
+
         } else {
 //            System.out.println(actualObj.get("roads"));
 //            System.out.println(actualObj.get("buildings"));
             for (String l : url.getLayers()) {
-                System.out.println("--"+l);
+                System.out.println("--" + l);
                 System.out.println(actualObj.get(l).get("features").get(0).get("properties"));
-                parser=factory.createParser(actualObj.get(l).get("features").get(0).get("properties").toString());
+                propertiesParser = factory.createParser(actualObj.get(l).get("features").get(0).get("properties").toString());
                 mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-                Properties p = mapper.readValue(parser,Properties.class);
+                Properties p = mapper.readValue(propertiesParser, Properties.class);
                 System.out.println(p.toString());
             }
         }
