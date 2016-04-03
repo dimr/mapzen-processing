@@ -24,7 +24,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import org.w3c.dom.Entity;
+
 import processing.data.JSONObject;
 
 
@@ -34,9 +34,10 @@ import processing.data.JSONObject;
 public class GsonMain {
 
     public static void main(String[] args) throws MalformedURLException, IOException, URISyntaxException {
-        String url = "http://vector.mapzen.com/osm/buildings/16/10484/25329.json?api_key=vector-tiles-9DKnALT";
+        MapzenUrl url= new MapzenUrlBuilder().setLongitude(-122.409531f).setLatitude(37.782281f).setZoom(16).setLayer("buildings").setKey("vector-tiles-PADQnWp").buildUrl();
+        System.out.println("LAYERS: "+url.getLayer());
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpGet httpget = new HttpGet(url);
+        HttpGet httpget = new HttpGet(url.toString());
         CloseableHttpResponse response = httpclient.execute(httpget);
         String entity = (EntityUtils.toString(response.getEntity()));
         System.out.println(response.getHeaders("Content-Type")[0].getValue().equals("application/json"));

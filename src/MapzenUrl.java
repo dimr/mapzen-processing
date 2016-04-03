@@ -14,7 +14,7 @@ public class MapzenUrl {
     private String layer;
     private int layerCounter = 0;
     private int maxLayers = 3;
-    private ArrayList<String> layers = new ArrayList<>();
+    private ArrayList<String> layers = new ArrayList<String>();
     private StringJoiner joiner = new StringJoiner(",");
 
     public MapzenUrl() {
@@ -72,17 +72,20 @@ public class MapzenUrl {
         this.layer = layer;
         System.out.println("Adding Layer: "+this.layer);
         this.layers.add(this.layer);
-
     }
 
-    public String constructULR() {
+    public ArrayList <String> getLayers(){
+        return this.layers;
+    }
+
+    public String toString () {
         //private final String url = "http://vector.mapzen.com/osm/buildings/16/10484/25329.json?api_key=vector-tiles-9DKnALT";
         StringBuilder finalURL = new StringBuilder();
         finalURL.append(this.url);
         finalURL.append(this.getLayer()+"/");
         finalURL.append(this.zoom+"/");
-        finalURL.append((int)this.longitude+"/");
-        finalURL.append((int)this.latitude);
+        finalURL.append(CoordinateConverter.long2Tile(this.getLongitude(),this.zoom)+"/");
+        finalURL.append(CoordinateConverter.lat2tile(this.getLatitude(),this.zoom));
         finalURL.append(".json?api_key=");
         finalURL.append(this.getKey());
         return finalURL.toString();

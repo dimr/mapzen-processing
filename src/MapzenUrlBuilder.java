@@ -47,15 +47,12 @@ public class MapzenUrlBuilder {
         return url;
     }
 
-    public String getURL(){
-        return this.url.constructULR();
-    }
+
 
     public static void main(String [] a){
-        MapzenUrl url= new MapzenUrlBuilder().setLongitude(10484).setLatitude(25329).setZoom(16).setLayer("buildings").
-                setLayer("earth").setKey("vector-tiles-9DKnALT").setLayer("water").buildUrl();
+        MapzenUrl url= new MapzenUrlBuilder().setLongitude(-122.409531f).setLatitude(37.782281f).setZoom(16).setLayer("buildings").setKey("vector-tiles-PADQnWp").setLayer("water").buildUrl();
         System.out.println(url.getLayer());
-        System.out.println(url.constructULR());
+        System.out.println(url.toString());
 //        MapzenUrl url= new MapzenUrl(43.54f, 432.2342f, 15, "SADAS", "water");
 //        url.setLayer("building");
 //        url.setLayer("earth");
