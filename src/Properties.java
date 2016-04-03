@@ -6,6 +6,28 @@ public class Properties {
     private String area;
     private String min_zoom;
     private String id;
+    private String sort_key;
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSort_key() {
+        return sort_key;
+    }
+
+    public void setSort_key(String sort_key) {
+        this.sort_key = sort_key;
+    }
+
+    public Properties(){
+
+    }
 
     public Properties(String kind, String area, String min_zoom, String id) {
         this.kind = kind;
@@ -36,6 +58,18 @@ public class Properties {
 
     public void setMin_zoom(String min_zoom) {
         this.min_zoom = min_zoom;
+    }
+
+    @Override
+    public String toString() {
+        return "Properties{" +
+                "kind='" + kind + '\'' +
+                ", area='" + area + '\'' +
+                ", min_zoom='" + min_zoom + '\'' +
+                ", id='" + id + '\'' +
+                ", sort_key='" + sort_key + '\'' +
+                ", name='" + name + '\'' +
+                '}';
     }
 
     public String getId() {
