@@ -98,14 +98,26 @@ public class LayerParser {
 
 
     public float geoTop(){
-        return this.box.getLatMax();
+        return this.box.getLatMin();
     }
 
     public float geoBottom(){
         return this.box.getLatMax();
     }
 
-    public void  printBoundingBox(){
-        System.out.println(this.box.toString());
+    public void printBoundingBox(){
+        System.out.println(this.toString());
     }
+
+
+    @Override
+    public String toString() {
+        return "LayerParser{" +
+                "geoLeft=" + geoLeft() +
+                ", geoRight=" + geoRight() +
+                ", geoTop=" + geoTop() +
+                ", geoBottom=" + geoBottom() +
+                '}';
+    }
+
 }
