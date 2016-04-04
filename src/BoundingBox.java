@@ -7,10 +7,7 @@ import java.util.Collections;
 public class BoundingBox {
 
 
-    private float longMin;//geoleft
-    private float longMax; //georight
-    private float latMin;//geotop
-    private float latMax;//geobottom
+
     private ArrayList<Float> longitudes=new ArrayList<>();
     private ArrayList<Float> latitudes=new ArrayList<>();
     private float min=Float.MAX_VALUE;
@@ -38,6 +35,7 @@ public class BoundingBox {
     public ArrayList getLatitudes(){
         return this.latitudes;
     }
+
     public int longitudeSize(){
         return this.longitudes.size();
     }
@@ -54,32 +52,31 @@ public class BoundingBox {
         return this.longitudes.get(0);
     }
 
-    public void setLongMin(float longMin) {
-        this.longMin = longMin;
-    }
+
 
     public float getLongMax() {
         return this.longitudes.get(this.longitudeSize()-1);
     }
 
-    public void setLongMax(float longMax) {
-        this.longMax = longMax;
-    }
+
 
     public float getLatMin() {
         return this.latitudes.get(0);
     }
 
-    public void setLatMin(float latMin) {
-        this.latMin = latMin;
-    }
+
 
     public float getLatMax() {
         return this.latitudes.get(this.latitudeSize()-1);
     }
 
-    public void setLatMax(float latMax) {
-        this.latMax = latMax;
+    @Override
+    public String toString() {
+        return "BoundingBox{" +
+                "longMin=" + getLongMin() +
+                ", longMax=" + getLongMax() +
+                ", latMin=" + getLatMin() +
+                ", latMax=" + getLatMax() +
+                '}';
     }
-
 }
