@@ -27,7 +27,7 @@ import java.util.stream.Stream;
 public class MapzenRequest {
 
     public static void main(String[] r) throws IOException {
-        MapzenUrl url = new MapzenUrlBuilder().setLongitude(-122.409531f).setLatitude(37.782281f).setZoom(13).setLayer("buildings").setLayer("roads").setKey("vector-tiles-PADQnWp").buildUrl();
+        MapzenUrl url = new MapzenUrlBuilder().setLongitude(-122.409531f).setLatitude(37.782281f).setZoom(16).setLayer("buildings").setLayer("roads").setKey("vector-tiles-PADQnWp").buildUrl();
         System.out.println("LAYERS: " + url.getLayer() + "\n" + url.toString());
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpGet httpget = new HttpGet(url.toString());
@@ -128,6 +128,22 @@ public class MapzenRequest {
                 }
             }
         }
+
+        //FROM BUILDING
+        for (Building b : allBuildings) {
+            if (b.getGeometry().getType().equals("Polygon")) {
+                ArrayList tempCoordinages = (ArrayList) b.getGeometry().getCoordinates().get(0);
+                for (int i = 0; i < tempCoordinages.size(); i++) {
+                    Float tempLong = ((Double) ((ArrayList) tempCoordinages.get(i)).get(0)).floatValue();
+                    Float tempLat = ((Double) ((ArrayList) tempCoordinages.get(i)).get(1)).floatValue();
+                    box.addLongitudeValue(tempLong);
+                    box.addLatitudeValue(tempLat);
+                }
+            }
+        }
+
+
+
         System.out.println(box.latitudeSize()+" "+box.longitudeSize());
         box.sortThem();
         System.out.println(box.getLongMin()+" "+box.getLongMax());
