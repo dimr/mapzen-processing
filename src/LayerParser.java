@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import layers.roads.Road;
 /**
  * Created by dimitris on 4/4/16.
  */
@@ -17,7 +18,7 @@ public class LayerParser {
     private ObjectMapper roadMapper;
     private int numberOfLayers;
     private ArrayList<Building> buildings;
-    private ArrayList<Building> roads;
+    private ArrayList<Road> roads;
     private BoundingBox box = new BoundingBox();
 
     public LayerParser(String content, int numberOfLayers) {
@@ -52,7 +53,7 @@ public class LayerParser {
             try {
                 buildings = buildingMapper.readValue(b.toString(), new TypeReference<List<Building>>() {
                 });
-                roads = roadMapper.readValue(r.toString(), new TypeReference<List<Building>>() {
+                roads = roadMapper.readValue(r.toString(), new TypeReference<List<Road>>() {
                 });
             } catch (IOException e) {
                 e.printStackTrace();
@@ -63,7 +64,7 @@ public class LayerParser {
         buildBoundingBox();
     }//CONSTRUCTOR
 
-    public ArrayList<Building> getRoads() {
+    public ArrayList<Road> getRoads() {
         return roads;
     }
 
@@ -119,5 +120,4 @@ public class LayerParser {
                 ", geoBottom=" + geoBottom() +
                 '}';
     }
-
 }
