@@ -1,9 +1,10 @@
 
 package layers.roads;
 
+import geometry.types.roads.LineString;
+import geometry.types.roads.MultiLineString;
 import toxi.geom.Vec2D;
 
-import java.lang.reflect.Array;
 import java.util.*;
 import javax.annotation.Generated;
 //import org.apache.commons.lang.builder.ToStringBuilder;
@@ -66,31 +67,10 @@ public class Geometry {
 
     public void toVec2D() {
         if (this.type.equals("LineString")) {
-            System.out.println("LineString: "+new LineString((ArrayList)this.getCoordinates()).getNumberOfLineString());
-//            System.out.println(this.getCoordinates());
-            for (Object tempVec : this.getCoordinates()) {
-                ArrayList temp = (ArrayList) tempVec;
-//                new LineString(temp);
-//                System.out.println("LineString: "+new LineString((ArrayList)temp).getNumberOfLineString());
-                //  System.out.println("-->"+new LineString(temp).getNumberOfLineString()+" "+temp.size());
-//            float x = ((Float) ((Double) temp.get(0)).floatValue());
-//            System.out.println(new Vec2D(((Float) ((Double) temp.get(0)).floatValue()), ((Float) ((Double) temp.get(1)).floatValue())));
-                appCoordinates.add(new Vec2D(((Float) ((Double) temp.get(0)).floatValue()), ((Float) ((Double) temp.get(1)).floatValue())));
-            }
+            System.out.println("LineString: "+new LineString((ArrayList)this.getCoordinates()).toString());
         } else if (this.type.equals("MultiLineString")) {
-            System.out.println("MultilineString:"+new MultiLineString((ArrayList)this.getCoordinates()).getLength());
-            for (Object temp : this.getCoordinates()) {
-                //System.out.println("MultineString: "+new MultiLineString((ArrayList)this.getCoordinates().get(0)).getLength());
-                ArrayList arrTemp = (ArrayList) temp;
-                for (Object t : arrTemp) {
-                    ArrayList coords = (ArrayList) t;
-                    appCoordinates.add(new Vec2D(((Float) ((Double) coords.get(0)).floatValue()), ((Float) ((Double) coords.get(1)).floatValue())));
-                }
-            }
-//            System.out.println(this.type+" "+ Arrays.toString(this.getCoordinates().toArray()));
+            System.out.println("MultilineString:"+new MultiLineString((ArrayList)this.getCoordinates()).toString());
         }
-//        return this.appCoordinates;
-
     }
 
     /**

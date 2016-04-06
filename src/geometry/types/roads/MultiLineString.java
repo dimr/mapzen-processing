@@ -1,6 +1,4 @@
-package layers.roads;
-
-import layers.roads.LineString;
+package geometry.types.roads;
 
 import java.util.ArrayList;
 
@@ -19,5 +17,13 @@ public class MultiLineString {
 
     public int getLength(){
         return this.lineStrings.size();
+    }
+
+    @Override
+    public String toString() {
+        return "MultiLineString{" +
+                "lineStrings=" + lineStrings +
+                ", length=" + getLength() +
+                '}';
     }
 }

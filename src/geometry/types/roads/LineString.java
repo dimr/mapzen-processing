@@ -1,4 +1,4 @@
-package layers.roads;
+package geometry.types.roads;
 
 import toxi.geom.Vec2D;
 
@@ -14,13 +14,24 @@ public class LineString {
     private ArrayList<Vec2D> points;
 
 
+    @Override
+    public String toString() {
+        return "LineString{" +
+                "points=" + points +
+                ", numberOfLineString=" + getNumberOfLineString() +
+                '}';
+    }
 
     public LineString(ArrayList p){
-        points=new ArrayList<Vec2D>();
+        points=new ArrayList<Vec2D>(p.size());
         for (Object o:p){
             ArrayList listVec=(ArrayList)(o);
             points.add(new Vec2D(((Float) ((Double) listVec.get(0)).floatValue()), ((Float) ((Double) listVec.get(1)).floatValue())));
         }
+
+    }
+
+    public LineString(){
 
     }
 
