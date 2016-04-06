@@ -35,8 +35,6 @@ public class LineString {
 
     }
 
-
-
     public int getNumberOfLineString(){
         return this.points.size();
     }

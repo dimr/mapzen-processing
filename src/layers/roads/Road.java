@@ -14,14 +14,7 @@ public class Road {
     private Properties properties;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    @Override
-    public String toString() {
-        return "Road{" +
-                "geometry=" + geometry +
-                ", type='" + type + '\'' +
-                ", properties=" + properties +
-                '}';
-    }
+
 
     /**
      * No args constructor for use in serialization
@@ -108,5 +101,16 @@ public class Road {
     public void setAdditionalProperty(String name, Object value) {
         this.additionalProperties.put(name, value);
     }
+
+
+    @Override
+    public String toString() {
+        return "Road{" +
+                "geometry=" + geometry +
+                ", type='" + type + '\'' +
+                ", properties=" + properties +
+                '}';
+    }
+
 
 }

@@ -14,7 +14,7 @@ public class Geometry {
 
     private String type;
     private List coordinates = new ArrayList<>();
-    private ArrayList<Vec2D> appCoordinates = new ArrayList<Vec2D>();
+    private ArrayList<LineString> lineStrings, multiLineStrings;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
