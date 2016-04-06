@@ -4,6 +4,7 @@ package layers.roads;
 import geometry.types.roads.LineString;
 import geometry.types.roads.MultiLineString;
 import toxi.geom.Vec2D;
+import utils.geo.BoundingBox;
 
 import java.util.*;
 import javax.annotation.Generated;
@@ -14,8 +15,9 @@ public class Geometry {
 
     private String type;
     private List coordinates = new ArrayList<>();
-    private ArrayList<LineString> lineStrings, multiLineStrings;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    private LineString lineString;
+    private MultiLineString multiLineString;
 
     /**
      * No args constructor for use in serialization
@@ -65,13 +67,23 @@ public class Geometry {
     all roads as LineStrings, format [ [], [] ,[]   ]
      */
 
-    public void toVec2D() {
+    public void createGeometryTypes() {
         if (this.type.equals("LineString")) {
-            System.out.println("LineString: "+new LineString((ArrayList)this.getCoordinates()).toString());
+            lineString = new LineString((ArrayList) this.getCoordinates());
         } else if (this.type.equals("MultiLineString")) {
-            System.out.println("MultilineString:"+new MultiLineString((ArrayList)this.getCoordinates()).toString());
+            multiLineString = new MultiLineString((ArrayList) this.getCoordinates());
         }
     }
+
+//    public void toApplicationDimesions(BoundingBox box){
+//        float geoLeft = box.getLongMin();
+//        float geoRigth = box.getLongMax();
+//        float geoTop = box.getLatMin();
+//        float geoBottom = box.getLatMax();
+//        for (Vec2D l: this.lineString.getPoints()){
+//        }
+//
+//    }
 
     /**
      * @param coordinates The coordinates

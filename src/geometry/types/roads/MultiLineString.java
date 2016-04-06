@@ -8,15 +8,20 @@ import java.util.ArrayList;
 public class MultiLineString {
 
     private ArrayList<LineString> lineStrings;
-    public MultiLineString(ArrayList p){
-        this.lineStrings=new ArrayList<>();
-        for (Object o:p){
-            this.lineStrings.add(new LineString((ArrayList)o));
+
+    public MultiLineString(ArrayList p) {
+        this.lineStrings = new ArrayList<>();
+        for (Object o : p) {
+            this.lineStrings.add(new LineString((ArrayList) o));
         }
     }
 
-    public int getLength(){
+    public int getLength() {
         return this.lineStrings.size();
+    }
+
+    public ArrayList<LineString> getLineStrings() {
+        return this.lineStrings;
     }
 
     @Override

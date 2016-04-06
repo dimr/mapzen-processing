@@ -21,12 +21,11 @@ public class Main {
 
 
 
-        System.out.println(parser.getRoads().get(0));
-        System.out.println(parser.getBuildings().get(0));
-        System.out.println(parser.getRoads().get(1));
+//        System.out.println(parser.getRoads().get(0));
+//        System.out.println(parser.getBuildings().get(0));
+//        System.out.println(parser.getRoads().get(1));
         for (Road rr : parser.getRoads())
-            rr.getGeometry().toVec2D();
-
+            rr.getGeometry().createGeometryTypes();
 
     }
 }

@@ -114,6 +114,10 @@ public class LayerParser {
         System.out.println(this.toString());
     }
 
+    public BoundingBox getBoundingBox(){
+        return this.box;
+    }
+
 
     @Override
     public String toString() {
