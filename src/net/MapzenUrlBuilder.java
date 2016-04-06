@@ -1,3 +1,5 @@
+package net;
+
 public class MapzenUrlBuilder {
     private float longitude;
     private float latitude;

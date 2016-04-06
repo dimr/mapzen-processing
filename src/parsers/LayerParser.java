@@ -1,14 +1,18 @@
+package parsers;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import javax.swing.text.html.parser.Parser;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import layers.buildings.Building;
 import layers.roads.Road;
+import utils.geo.BoundingBox;
+
 /**
  * Created by dimitris on 4/4/16.
  */
