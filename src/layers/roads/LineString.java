@@ -10,28 +10,24 @@ import java.util.ArrayList;
  */
 //LineString is essentially a Vec
 public class LineString {
-    private Vec2D vec;
+
     private ArrayList<Vec2D> points;
-    public LineString(){
-        this.vec= new Vec2D();
-    }
 
-
-    public LineString(float x, float y){
-        this.vec=new Vec2D(x,y);
-    }
 
 
     public LineString(ArrayList p){
-        points=new ArrayList<Vec2D>(p.size());
-        for (Object pp:p){
-            points.add(new Vec2D((Float)p.get(0),(Float)p.get(1)));
+        points=new ArrayList<Vec2D>();
+        for (Object o:p){
+            ArrayList listVec=(ArrayList)(o);
+            points.add(new Vec2D(((Float) ((Double) listVec.get(0)).floatValue()), ((Float) ((Double) listVec.get(1)).floatValue())));
         }
+
     }
 
-    public void setLineString(float x,float y){
-        this.vec.set(x,y);
 
+
+    public int getNumberOfLineString(){
+        return this.points.size();
     }
 
 }
