@@ -58,21 +58,35 @@ public class Geometry {
 
     @Override
     public String toString() {
+
+        if (this.lineString == null) {
+            return "Geometry{" +
+                    "type='" + type + '\'' +
+                    ", coordinates=" + multiLineString.getLineStrings() +
+                    " coordinates=" + coordinates +
+                    '}';
+        }
         return "Geometry{" +
                 "type='" + type + '\'' +
-                ", coordinates=" + lineString +", coordinates=" + coordinates +
+                ", coordinates=" + lineString + ", coordinates=" + multiLineString +
+                " coordinates=" + coordinates +
                 '}';
     }
     /*
     all roads as LineStrings, format [ [], [] ,[]   ]
      */
 
-    public void createGeometryTypes(BoundingBox box,int width, int height) {
+    public void createGeometryTypes(BoundingBox box, int width, int height) {
         if (this.type.equals("LineString")) {
-            lineString = new LineString((ArrayList) this.getCoordinates()).toApplicationDimension(box,width,height);
+            lineString = new LineString((ArrayList) this.getCoordinates(), box, width, height);
         } else if (this.type.equals("MultiLineString")) {
-            multiLineString = new MultiLineString((ArrayList) this.getCoordinates());
+            multiLineString = new MultiLineString((ArrayList) this.getCoordinates(), box, width, height);
+            System.out.println((lineString == null) + "->" + multiLineString.getLineStrings());
+//            for (Object o : this.getCoordinates())
+//                multiLineString = new MultiLineString(new LineString((ArrayList) o).toApplicationDimension(box, width, height));
+////            multiLineString = new MultiLineString(new LineString((ArrayList) this.getCoordinates().get(0)).toApplicationDimension(box, width, height));
         }
+
     }
 
 //    public void toApplicationDimesions(BoundingBox box,int width, int height){
@@ -89,7 +103,10 @@ public class Geometry {
 //        }
 
 
-//    }
+    //    }
+    public MultiLineString getMultiLineString() {
+        return this.multiLineString;
+    }
 
     /**
      * @param coordinates The coordinates

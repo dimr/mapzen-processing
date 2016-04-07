@@ -17,6 +17,7 @@ public class Mapzen {
     private MapzenRequest response;
     private MapzenUrl url;
     private BoundingBox box;
+
     //width,height as this
     // numberOfLayer needs to be removed from here
     public Mapzen(int width, int height, MapzenUrl url, int numberOfLayers) {
@@ -27,20 +28,21 @@ public class Mapzen {
         this.parser = new LayerParser(response.getContent(), numberOfLayers);
         parser.printBoundingBox();
         this.box = parser.getBoundingBox();
-        for (int i=0; i<this.parser.getRoads().size(); i++){
+        for (int i = 0; i < this.parser.getRoads().size(); i++) {
 //            parser.getRoads().get(0).getGeometry().createGeometryTypes();
-            parser.getRoads().get(i).getGeometry().createGeometryTypes(box,width,height);
+            parser.getRoads().get(i).getGeometry().createGeometryTypes(box, width, height);
         }
-        for (Road r:this.parser.getRoads()){
-            System.out.println(r.getGeometry());
+        for (Road r : this.parser.getRoads()) {
+            if (r.getGeometry().getType().equals("MultiLineString")) ;
+                System.out.println(r.getGeometry());
         }
     }
 
-    public ArrayList<Road> getRoadsLayers(){
+    public ArrayList<Road> getRoadsLayers() {
         return this.parser.getRoads();
     }
 
-    public ArrayList<Building> getBuildingsLayer(){
+    public ArrayList<Building> getBuildingsLayer() {
         return this.parser.getBuildings();
     }
 
