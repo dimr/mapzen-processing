@@ -77,7 +77,6 @@ public class LayerParser {
     }
 
     private void buildBoundingBox() {
-
         for (Building b : this.buildings) {
             //System.out.println(b);
             if (b.getGeometry().getType().equals("Polygon")) {

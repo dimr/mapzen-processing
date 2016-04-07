@@ -24,10 +24,10 @@ public class LineString {
     }
 
     public LineString(ArrayList p) {
-        points = new ArrayList<Vec2D>(p.size());
+        this.points = new ArrayList<Vec2D>(p.size());
         for (Object o : p) {
             ArrayList listVec = (ArrayList) (o);
-            points.add(new Vec2D(((Float) ((Double) listVec.get(0)).floatValue()), ((Float) ((Double) listVec.get(1)).floatValue())));
+            this.points.add(new Vec2D(((Float) ((Double) listVec.get(0)).floatValue()), ((Float) ((Double) listVec.get(1)).floatValue())));
         }
 
     }
@@ -38,23 +38,28 @@ public class LineString {
     }
 
     /**
-     * @param The    Bounding Box
-     * @param the    width of the applet
-     * @param height of the applet (need to pass Applet)
+     * @param Bounding Box
+     * @param width    of the applet
+     * @param height   of the applet (need to pass Applet)
      * @return
      */
+
+
     public LineString toApplicationDimension(BoundingBox box, int width, int height) {
         float geoLeft = box.getLongMin();
         float geoRigth = box.getLongMax();
         float geoTop = box.getLatMin();
         float geoBottom = box.getLatMax();
         ArrayList<Vec2D> temp = new ArrayList<>(this.points.size());
-        for (Vec2D v : this.points) {
-            float x = width * (v.x() - geoLeft) / (geoRigth - (geoLeft));
-            float y = (height - height * (v.y() - geoTop) / (geoBottom - geoTop));
-            temp.add(new Vec2D(x, y));
+       for (int i=0; i<this.points.size(); i++){
+            float x = width * (this.points.get(i).x() - geoLeft) / (geoRigth - (geoLeft));
+            float y = (height - height * (this.points.get(i).y() - geoTop) / (geoBottom - geoTop));
+
+//            temp.add(new Vec2D(x, y));
+           this.points.set(i,new Vec2D(x,y));
+//            System.out.println(x + " " + y);
         }
-        this.points = temp;
+//        this.points = temp;
         return this;
     }
 

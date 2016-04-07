@@ -60,29 +60,35 @@ public class Geometry {
     public String toString() {
         return "Geometry{" +
                 "type='" + type + '\'' +
-                ", coordinates=" + coordinates +
+                ", coordinates=" + lineString +", coordinates=" + coordinates +
                 '}';
     }
     /*
     all roads as LineStrings, format [ [], [] ,[]   ]
      */
 
-    public void createGeometryTypes() {
+    public void createGeometryTypes(BoundingBox box,int width, int height) {
         if (this.type.equals("LineString")) {
-            lineString = new LineString((ArrayList) this.getCoordinates());
+            lineString = new LineString((ArrayList) this.getCoordinates()).toApplicationDimension(box,width,height);
         } else if (this.type.equals("MultiLineString")) {
             multiLineString = new MultiLineString((ArrayList) this.getCoordinates());
         }
     }
 
-//    public void toApplicationDimesions(BoundingBox box){
+//    public void toApplicationDimesions(BoundingBox box,int width, int height){
+//        createGeometryTypes();
+//        ArrayList<Vec2D> result = new ArrayList<>();
 //        float geoLeft = box.getLongMin();
 //        float geoRigth = box.getLongMax();
 //        float geoTop = box.getLatMin();
 //        float geoBottom = box.getLatMax();
-//        for (Vec2D l: this.lineString.getPoints()){
+//        for (Vec2D v: this.lineString.getPoints()){
+//            float x = width * (v.x() - geoLeft) / (geoRigth - (geoLeft));
+//            float y = (height - height * (v.y() - geoTop) / (geoBottom - geoTop));
+//            result.add(new Vec2D(x,y));
 //        }
-//
+
+
 //    }
 
     /**
