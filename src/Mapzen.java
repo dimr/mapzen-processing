@@ -4,6 +4,7 @@ import net.MapzenRequest;
 import net.MapzenUrl;
 import parsers.LayerParser;
 import processing.core.PApplet;
+import renderers.PolygonRenderer;
 import renderers.RoadRenderer;
 import utils.geo.BoundingBox;
 
@@ -35,10 +36,14 @@ public class Mapzen {
 //            parser.getRoads().get(0).getGeometry().createGeometryTypes();
             parser.getRoads().get(i).getGeometry().createGeometryTypes(box, width, height);
         }
-        for (Road r : this.parser.getRoads()) {
-//            if (r.getGeometry().getType().equals("MultiLineString")) ;
-            System.out.println(r);
-        }
+//        for (Road r : this.parser.getRoads()) {
+////            if (r.getGeometry().getType().equals("MultiLineString")) ;
+//            System.out.println(r);
+//        }
+
+        System.out.println("MAP: " + parser.getBuildings().get(0).getGeometry());
+        for (Building b : parser.getBuildings())
+            b.getGeometry().createGeometryTypes(box,width,height);
     }
 
 
@@ -59,8 +64,10 @@ public class Mapzen {
 ////            if (r.getGeometry().getType().equals("MultiLineString")) ;
 //            System.out.println(r);
 //        }
-        for (Road road : parser.getRoads())
-            new RoadRenderer(this.pa, road).draw();
+        for (int i=0; i<this.parser.getBuildings().size();  i++){
+            parser.getBuildings().get(i).getGeometry().createGeometryTypes(box,pa.width,pa.height);
+        }
+
     }
 
 
@@ -72,6 +79,15 @@ public class Mapzen {
         return this.parser.getBuildings();
     }
 
+    public void renderRoads() {
+        for (Road road : parser.getRoads())
+            new RoadRenderer(this.pa, road).draw();
+    }
+
+    public void renderPolygons(){
+        for (Building building:parser.getBuildings())
+            new PolygonRenderer(this.pa,building).draw();
+    }
 
     @Override
     public String toString() {
