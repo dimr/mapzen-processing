@@ -6,6 +6,8 @@ import parsers.LayerParser;
 import processing.core.PApplet;
 import renderers.PolygonRenderer;
 import renderers.RoadRenderer;
+import toxi.geom.Polygon2D;
+import toxi.geom.Vec2D;
 import utils.geo.BoundingBox;
 
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ public class Mapzen {
     private MapzenUrl url;
     private BoundingBox box;
     private PApplet pa;
+    private PolygonRenderer polygonRender;
 
     //width,height as this
     // numberOfLayer needs to be removed from here
@@ -43,7 +46,7 @@ public class Mapzen {
 
         System.out.println("MAP: " + parser.getBuildings().get(0).getGeometry());
         for (Building b : parser.getBuildings())
-            b.getGeometry().createGeometryTypes(box,width,height);
+            b.getGeometry().createGeometryTypes(box, width, height);
     }
 
 
@@ -64,9 +67,10 @@ public class Mapzen {
 ////            if (r.getGeometry().getType().equals("MultiLineString")) ;
 //            System.out.println(r);
 //        }
-        for (int i=0; i<this.parser.getBuildings().size();  i++){
-            parser.getBuildings().get(i).getGeometry().createGeometryTypes(box,pa.width,pa.height);
+        for (int i = 0; i < this.parser.getBuildings().size(); i++) {
+            parser.getBuildings().get(i).getGeometry().createGeometryTypes(box, pa.width, pa.height);
         }
+
 
     }
 
@@ -84,10 +88,16 @@ public class Mapzen {
             new RoadRenderer(this.pa, road).draw();
     }
 
-    public void renderPolygons(){
-        for (Building building:parser.getBuildings())
-            new PolygonRenderer(this.pa,building).draw();
+    public void renderPolygons() {
+        for (int i = 0; i < parser.getBuildings().size(); i++) {
+            Polygon2D p = parser.getBuildings().get(i).getGeometry().getPolygon().ToxiPolygon();
+            Vec2D center = p.getCentroid();
+            pa.ellipse(center.x,center.y,40,40);
+            new PolygonRenderer(this.pa, parser.getBuildings().get(i)).draw();
+        }
+
     }
+
 
     @Override
     public String toString() {

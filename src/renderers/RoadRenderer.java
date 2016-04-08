@@ -34,6 +34,7 @@ public class RoadRenderer {
 //            }
             pa.stroke(255,0,0);
             this.toxi.lineStrip2D(this.road.getGeometry().getLineString().getPoints());
+
         }
     }
 }
