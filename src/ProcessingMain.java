@@ -18,7 +18,9 @@ public class ProcessingMain extends PApplet {
     @Override
     public void setup() {
 
-        MapzenUrl url = new MapzenUrlBuilder().setLongitude(-122.409531f).setLatitude(37.782281f).setZoom(16).setLayer("buildings").setLayer("roads").setKey("vector-tiles-PADQnWp").buildUrl();
+        MapzenUrl url = new MapzenUrlBuilder().setLongitude(-122.409531f).setLatitude(37.782281f).setZoom(13).setLayer("buildings").setLayer("roads").setKey("vector-tiles-PADQnWp").buildUrl();
+        //New York
+//        MapzenUrl url = new MapzenUrlBuilder().setLongitude(-73.98658f).setLatitude(40.7306f).setZoom(16).setLayer("buildings").setLayer("roads").setKey("vector-tiles-PADQnWp").buildUrl();
         mapzen =  new Mapzen(this, url, 2); //this PApplet size
         System.out.println(mapzen.getBuildingsLayer().size());
 
@@ -42,13 +44,17 @@ public class ProcessingMain extends PApplet {
 //            toxi.polygon2D(b.getGeometry().getPolygon().ToxiPolygon());
 //        }
         mapzen.renderPolygons();
+//        pushMatrix();
+//        translate(width/2,height/2,200);
+//        sphere(50);
+//        popMatrix();
 
 
     }
 
     public void settings() {
 //        size(800, 600);
-        size(800, 600,"processing.opengl.PGraphics3D");
+        size(1300, 850,"processing.opengl.PGraphics3D");
     }
 
     public static void main(String[] args) {

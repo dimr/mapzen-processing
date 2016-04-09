@@ -68,6 +68,7 @@ public class Geometry {
 //                polygon=p;
 //                polygon.add(tempVec);
             }
+
             polygon.toApplicationDimension(box, width, height);
         }
 //        System.out.println("Polygon " + this.polygon);

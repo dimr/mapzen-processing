@@ -92,7 +92,15 @@ public class Mapzen {
         for (int i = 0; i < parser.getBuildings().size(); i++) {
             Polygon2D p = parser.getBuildings().get(i).getGeometry().getPolygon().ToxiPolygon();
             Vec2D center = p.getCentroid();
-            pa.ellipse(center.x,center.y,40,40);
+            assert p!=null:"Null Polygons";
+//            System.out.println(p.getArea());
+//            System.out.println(parser.getBuildings().get(i));
+//            pa.pushMatrix();
+//            pa.noStroke();
+//            pa.translate(center.x,center.y,10);
+//            pa.ellipse(0,0,3,3);
+//            pa.popMatrix();
+
             new PolygonRenderer(this.pa, parser.getBuildings().get(i)).draw();
         }
 
