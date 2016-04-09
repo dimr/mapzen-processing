@@ -35,6 +35,7 @@ public class RoadRenderer {
             pa.pushStyle();
             pa.stroke(255,0,0);
             this.toxi.lineStrip2D(this.road.getGeometry().getLineString().getPoints());
+//            this.toxi.lines2D();
             pa.popStyle();
 //            for (int i=0; i<this.road.getGeometry().getLineString().getPoints().size()-1; i++){
 //                Vec2D start=this.road.getGeometry().getLineString().getPoints().get(i);

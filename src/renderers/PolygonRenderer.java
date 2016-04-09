@@ -30,6 +30,7 @@ public class PolygonRenderer {
 //        this.building.getGeometry().getPolygon().ToxiPolygon()
 //        System.out.println("Rendering  Polygons");
         if (this.building.getGeometry().getType().equals("Polygon")) {
+//            System.out.println(this.building.getProperties().getHeight());
             pa.pushStyle();
             pa.fill(0, 0, 210);
 //            pa.stroke(0,0,255);
@@ -62,7 +63,7 @@ public class PolygonRenderer {
 //            pa.stroke(255,0,0);
 //            this.toxi.line(one,new Vec3D(poly.get(0).x,poly.get(0).y,30));
 //            pa.popStyle();
-                int height = 20;
+                float height = this.building.getProperties().getHeight()==null?20:Float.parseFloat(this.building.getProperties().getHeight());
                 for (int i = 0; i < poly.getNumVertices() - 1; i++) {
                     Vec3D first = new Vec3D(poly.get(i).x, poly.get(i).y, 0);
                     Vec3D firstTop = new Vec3D(first.x, first.y, height);
