@@ -1,6 +1,6 @@
 package geometry.types.roads;
 
-import toxi.geom.Vec2D;
+import toxi.geom.Vec3D;
 import utils.geo.BoundingBox;
 
 import javax.sound.sampled.Line;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 //LineString is essentially a Vec
 public class LineString {
 
-    private ArrayList<Vec2D> points;
+    private ArrayList<Vec3D> points;
 
 
     @Override
@@ -24,60 +24,54 @@ public class LineString {
     }
 
     public LineString(ArrayList p) {
-        this.points = new ArrayList<Vec2D>(p.size());
+        this.points = new ArrayList<Vec3D>(p.size());
         for (Object o : p) {
             ArrayList listVec = (ArrayList) (o);
-            this.points.add(new Vec2D(((Float) ((Double) listVec.get(0)).floatValue()), ((Float) ((Double) listVec.get(1)).floatValue())));
+            this.points.add(new Vec3D(((Float) ((Double) listVec.get(0)).floatValue()), ((Float) ((Double) listVec.get(1)).floatValue()), 0));
         }
 
     }
 
-    public LineString(ArrayList p,BoundingBox box, int width,int height) {
-        this.points = new ArrayList<Vec2D>(p.size());
+    public LineString(ArrayList p, BoundingBox box, int width, int height) {
+        this.points = new ArrayList<Vec3D>(p.size());
         for (Object o : p) {
             ArrayList listVec = (ArrayList) (o);
-            this.points.add(new Vec2D(((Float) ((Double) listVec.get(0)).floatValue()), ((Float) ((Double) listVec.get(1)).floatValue())));
+            this.points.add(new Vec3D(((Float) ((Double) listVec.get(0)).floatValue()), ((Float) ((Double) listVec.get(1)).floatValue()), 0));
         }
         float geoLeft = box.getLongMin();
         float geoRigth = box.getLongMax();
         float geoTop = box.getLatMin();
         float geoBottom = box.getLatMax();
-        ArrayList<Vec2D> temp = new ArrayList<>(this.points.size());
+        ArrayList<Vec3D> temp = new ArrayList<>(this.points.size());
         for (int i = 0; i < this.points.size(); i++) {
             float x = width * (this.points.get(i).x() - geoLeft) / (geoRigth - (geoLeft));
             float y = (height - height * (this.points.get(i).y() - geoTop) / (geoBottom - geoTop));
 
-//            temp.add(new Vec2D(x, y));
-            this.points.set(i, new Vec2D(x, y));
+//            temp.add(new Vec3D(x, y));
+            this.points.set(i, new Vec3D(x, y, 0));
 //            System.out.println(x + " " + y);
         }
 
     }
 
 
-    public ArrayList<Vec2D> getPoints() {
+    public ArrayList<Vec3D> getPoints() {
         return this.points;
     }
 
-    /**
-     * @param Bounding Box
-     * @param width    of the applet
-     * @param height   of the applet (need to pass Applet)
-     * @return
-     */
 
 //    public void toAppletDimension(BoundingBox box,int width,int height) {
 //        float geoLeft = box.getLongMin();
 //        float geoRigth = box.getLongMax();
 //        float geoTop = box.getLatMin();
 //        float geoBottom = box.getLatMax();
-//        ArrayList<Vec2D> temp = new ArrayList<>(this.points.size());
+//        ArrayList<Vec3D> temp = new ArrayList<>(this.points.size());
 //        for (int i = 0; i < this.points.size(); i++) {
 //            float x = width * (this.points.get(i).x() - geoLeft) / (geoRigth - (geoLeft));
 //            float y = (height - height * (this.points.get(i).y() - geoTop) / (geoBottom - geoTop));
 //
-////            temp.add(new Vec2D(x, y));
-//            this.points.set(i, new Vec2D(x, y));
+////            temp.add(new Vec3D(x, y));
+//            this.points.set(i, new Vec3D(x, y));
 ////            System.out.println(x + " " + y);
 //        }
 //    }
@@ -87,13 +81,13 @@ public class LineString {
         float geoRigth = box.getLongMax();
         float geoTop = box.getLatMin();
         float geoBottom = box.getLatMax();
-        ArrayList<Vec2D> temp = new ArrayList<>(this.points.size());
+        ArrayList<Vec3D> temp = new ArrayList<>(this.points.size());
         for (int i = 0; i < this.points.size(); i++) {
             float x = width * (this.points.get(i).x() - geoLeft) / (geoRigth - (geoLeft));
             float y = (height - height * (this.points.get(i).y() - geoTop) / (geoBottom - geoTop));
 
-//            temp.add(new Vec2D(x, y));
-            this.points.set(i, new Vec2D(x, y));
+//            temp.add(new Vec3D(x, y));
+            this.points.set(i, new Vec3D(x, y, 0));
 //            System.out.println(x + " " + y);
         }
 //        this.points = temp;

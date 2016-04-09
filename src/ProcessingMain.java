@@ -24,8 +24,7 @@ public class ProcessingMain extends PApplet {
         mapzen =  new Mapzen(this, url, 2); //this PApplet size
         System.out.println(mapzen.getBuildingsLayer().size());
 
-//        center = toApplicationDimension(longLat);
-        cam = new PeasyCam(this, 0, 0, 0, 1100);
+        cam = new PeasyCam(this, width/2, height/2, 0, 1100);
         cam.setMinimumDistance(50);
         cam.setMaximumDistance(1500);
 //        mapzen.renderRoads();
@@ -53,8 +52,9 @@ public class ProcessingMain extends PApplet {
     }
 
     public void settings() {
-//        size(800, 600);
-        size(1300, 850,"processing.opengl.PGraphics3D");
+//        size(1300,850);
+//        size(1300, 850,"processing.opengl.PGraphics3D");
+        fullScreen(P3D,2);
     }
 
     public static void main(String[] args) {
