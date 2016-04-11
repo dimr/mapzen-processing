@@ -8,11 +8,11 @@ import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import layers.buildings.Properties;
+import main.layers.buildings.Properties;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import net.MapzenUrl;
-import net.MapzenUrlBuilder;
+import main.net.MapzenUrl;
+import main.net.MapzenUrlBuilder;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
