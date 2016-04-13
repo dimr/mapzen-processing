@@ -17,7 +17,7 @@ public class Building {
                 "geometry=" + geometry +
                 ", type='" + type + '\'' +
                 ", properties=" + properties +
-                ", additionalProperties=" + additionalProperties +
+//                ", additionalProperties=" + additionalProperties +
                 '}';
     }
 
@@ -36,11 +36,11 @@ public class Building {
      * @param type
      * @param geometry
      */
-    public Building(Geometry geometry, String type, Properties properties) {
-        this.geometry = geometry;
-        this.type = type;
-        this.properties = properties;
-    }
+//    public Building(Geometry geometry, String type, Properties properties) {
+//        this.geometry = geometry;
+//        this.type = type;
+//        this.properties = properties;
+//    }
 
     /**
      *

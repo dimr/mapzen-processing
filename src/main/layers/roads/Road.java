@@ -23,6 +23,16 @@ public class Road {
     public Road() {
     }
 
+    @Override
+    public String toString() {
+        return "Road{" +
+                "geometry=" + geometry +
+                ", type='" + type + '\'' +
+                ", properties=" + properties +
+                ", additionalProperties=" + additionalProperties +
+                '}';
+    }
+
     /**
      * 
      * @param properties
@@ -100,16 +110,6 @@ public class Road {
 
     public void setAdditionalProperty(String name, Object value) {
         this.additionalProperties.put(name, value);
-    }
-
-
-    @Override
-    public String toString() {
-        return "Road{" +
-                "geometry=" + geometry +
-                ", type='" + type + '\'' +
-                ", properties=" + properties +
-                '}';
     }
 
 

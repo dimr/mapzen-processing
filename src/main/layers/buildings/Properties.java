@@ -1,5 +1,11 @@
 package main.layers.buildings;
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by dimitris on 4/2/16.
  */
@@ -11,6 +17,8 @@ public class Properties {
     private String sort_key;
     private String name;
     private String height;
+    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
 
     public String getHeight() {
         return height;
@@ -71,18 +79,6 @@ public class Properties {
         this.min_zoom = min_zoom;
     }
 
-    @Override
-    public String toString() {
-        return "Properties{" +
-                "kind='" + kind + '\'' +
-                ", area='" + area + '\'' +
-                ", min_zoom='" + min_zoom + '\'' +
-                ", id='" + id + '\'' +
-                ", sort_key='" + sort_key + '\'' +
-                ", name='" + name + '\'' +
-                '}';
-    }
-
     public String getId() {
         return id;
     }
@@ -90,6 +86,18 @@ public class Properties {
     public void setId(String id) {
         this.id = id;
     }
+
+
+    @JsonAnyGetter
+    public Map<String, Object> getAdditionalProperties() {
+        return this.additionalProperties;
+    }
+
+    @JsonAnySetter
+    public void setAdditionalProperty(String name, Object value) {
+        this.additionalProperties.put(name, value);
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -113,5 +121,19 @@ public class Properties {
         result = 31 * result + (getMin_zoom() != null ? getMin_zoom().hashCode() : 0);
         result = 31 * result + (getId() != null ? getId().hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Properties{" +
+                "kind='" + kind + '\'' +
+                ", area='" + area + '\'' +
+                ", min_zoom='" + min_zoom + '\'' +
+                ", id='" + id + '\'' +
+                ", sort_key='" + sort_key + '\'' +
+                ", name='" + name + '\'' +
+                ", height='" + height + '\'' +
+                ", additionalProperties=" + additionalProperties +
+                '}';
     }
 }

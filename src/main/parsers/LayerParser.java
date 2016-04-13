@@ -25,11 +25,11 @@ public class LayerParser {
     private ArrayList<Road> roads;
     private BoundingBox box = new BoundingBox();
 
-    public LayerParser(String content, int numberOfLayers) {
-        this.numberOfLayers = numberOfLayers;
+    public LayerParser(String content, ArrayList<String> layers) {
+        this.numberOfLayers = layers.size();
         if (this.numberOfLayers == 1) {
             buildingMapper = new ObjectMapper();
-            buildingMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+//            buildingMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
             try {
                 JsonNode actualObj = buildingMapper.readTree(content);
                 JsonNode features = actualObj.get("features");
@@ -42,8 +42,8 @@ public class LayerParser {
         } else {
             buildingMapper = new ObjectMapper();
             roadMapper = new ObjectMapper();
-            buildingMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-            roadMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+//            buildingMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+//            roadMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
             JsonNode actualObj = null;
             try {
                 actualObj = roadMapper.readTree(content);

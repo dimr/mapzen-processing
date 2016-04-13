@@ -32,10 +32,10 @@ public class Mapzen {
     public Mapzen(int width, int height, MapzenUrl url) {
         this.url = url;
         this.response = new MapzenRequest(this.url.toString());
-        System.out.println("----"+url.getLayers());
+        System.out.println("----" + url.getLayers());
 
         //Parser needs to return all layers;
-        this.parser = new LayerParser(response.getContent(), url.getLayers().size());
+        this.parser = new LayerParser(response.getContent(), this.url.getLayers());
         parser.printBoundingBox();
         this.box = parser.getBoundingBox();
         for (int i = 0; i < this.parser.getRoads().size(); i++) {
@@ -50,6 +50,12 @@ public class Mapzen {
         System.out.println("MAP: " + parser.getBuildings().get(0).getGeometry());
         for (Building b : parser.getBuildings())
             b.getGeometry().createGeometryTypes(box, width, height);
+
+        for (Road r:parser.getRoads())
+            System.out.println(r);
+
+//        for (Building b:parser.getBuildings())
+//            System.out.println(b);
     }
 
 
@@ -59,7 +65,7 @@ public class Mapzen {
         this.response = new MapzenRequest(this.url.toString());
 
         //Parser needs to return all layers;
-        this.parser = new LayerParser(response.getContent(), this.url.getLayers().size());
+        this.parser = new LayerParser(response.getContent(), this.url.getLayers());
         parser.printBoundingBox();
         this.box = parser.getBoundingBox();
         for (int i = 0; i < this.parser.getRoads().size(); i++) {
