@@ -44,9 +44,9 @@ public class MapzenUrlBuilder {
     public MapzenUrl buildUrl() {
         //url= new MapzenUrl();
         url.setKey(this.key);
+        url.setZoom(this.zoom);
         url.setLatitude(this.latitude);
         url.setLongitude(this.longitude);
-        url.setZoom(this.zoom);
         return url;
     }
     

@@ -1,6 +1,7 @@
 package main.net;
 
 import main.geo.CoordinateConverter;
+import remixlab.proscene.InteractiveFrame;
 
 import java.util.ArrayList;
 import java.util.StringJoiner;
@@ -19,6 +20,7 @@ public class MapzenUrl {
     private int maxLayers = 3;
     private ArrayList<String> layers = new ArrayList<String>();
     private StringJoiner joiner = new StringJoiner(",");
+    private int mapzenLongitude,mapzenLatitude;
 
     public MapzenUrl() {
 
@@ -40,7 +42,7 @@ public class MapzenUrl {
     }
 
     public void setLongitude(float longitude) {
-        this.longitude = longitude;
+        this.longitude = CoordinateConverter.long2Tile(longitude,this.zoom);
     }
 
     public float getLatitude() {
@@ -48,7 +50,7 @@ public class MapzenUrl {
     }
 
     public void setLatitude(float latitude) {
-        this.latitude = latitude;
+        this.latitude = CoordinateConverter.lat2tile(latitude,this.zoom);
     }
 
     public int getZoom() {
@@ -56,6 +58,7 @@ public class MapzenUrl {
     }
 
     public void setZoom(int zoom) {
+//        assert(zoom>13 && zoom<=16):"Not allowed zoom value";
         this.zoom = zoom;
     }
 
@@ -82,6 +85,7 @@ public class MapzenUrl {
     }
 
 
+
     //need to remove conversion from here
     public String toString () {
         //private final String url = "http://vector.mapzen.com/osm/buildings/16/10484/25329.json?api_key=vector-tiles-9DKnALT";
@@ -89,8 +93,8 @@ public class MapzenUrl {
         finalURL.append(this.url);
         finalURL.append(this.getLayer()+"/");
         finalURL.append(this.zoom+"/");
-        finalURL.append(CoordinateConverter.long2Tile(this.getLongitude(),this.zoom)+"/");
-        finalURL.append(CoordinateConverter.lat2tile(this.getLatitude(),this.zoom));
+        finalURL.append((int)this.longitude+"/");
+        finalURL.append((int)this.latitude);
         finalURL.append(".json?api_key=");
         finalURL.append(this.getKey());
         return finalURL.toString();

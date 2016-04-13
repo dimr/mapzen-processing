@@ -35,9 +35,9 @@ public class MapzenRequest {
             }
         }
         statusCode = response.getStatusLine().getStatusCode();
-        if (statusCode != 200) {
-            throw new Error("Http Response status code: " + statusCode);
-        }
+//        if (statusCode != 200) {
+//            throw new RuntimeException("Http Response status code: " + statusCode);
+//        }
 
     }//Constructor
 
