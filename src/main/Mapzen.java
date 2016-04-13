@@ -29,12 +29,13 @@ public class Mapzen {
 
     //width,height as this
     // numberOfLayer needs to be removed from here
-    public Mapzen(int width, int height, MapzenUrl url, int numberOfLayers) {
+    public Mapzen(int width, int height, MapzenUrl url) {
         this.url = url;
         this.response = new MapzenRequest(this.url.toString());
+        System.out.println("----"+url.getLayers());
 
         //Parser needs to return all layers;
-        this.parser = new LayerParser(response.getContent(), numberOfLayers);
+        this.parser = new LayerParser(response.getContent(), url.getLayers().size());
         parser.printBoundingBox();
         this.box = parser.getBoundingBox();
         for (int i = 0; i < this.parser.getRoads().size(); i++) {
@@ -52,13 +53,13 @@ public class Mapzen {
     }
 
 
-    public Mapzen(PApplet pa, MapzenUrl url, int numberOfLayers) {
+    public Mapzen(PApplet pa, MapzenUrl url) {
         this.pa = pa;
         this.url = url;
         this.response = new MapzenRequest(this.url.toString());
 
         //Parser needs to return all layers;
-        this.parser = new LayerParser(response.getContent(), numberOfLayers);
+        this.parser = new LayerParser(response.getContent(), this.url.getLayers().size());
         parser.printBoundingBox();
         this.box = parser.getBoundingBox();
         for (int i = 0; i < this.parser.getRoads().size(); i++) {
@@ -94,7 +95,7 @@ public class Mapzen {
         for (int i = 0; i < parser.getBuildings().size(); i++) {
             Polygon2D p = parser.getBuildings().get(i).getGeometry().getPolygon().ToxiPolygon();
             Vec2D center = p.getCentroid();
-            assert p!=null:"Null Polygons";
+            assert p != null : "Null Polygons";
 //            System.out.println(p.getArea());
 //            System.out.println(parser.getBuildings().get(i));
 //            pa.pushMatrix();
