@@ -1,7 +1,8 @@
 #!/bin/bash
 
-export CLASSPATH=./src/:./libs/*:./bin/
+export CLASSPATH=./src/main/:./libs/*:./build/
 
 
 
-javac -d bin/ src/*.java ; optirun java -ea ProcessingMain
+#javac -d bin/ $(find  src/main/ -iname *.java) ;
+ optirun java -ea main.ProcessingMain

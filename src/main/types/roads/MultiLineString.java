@@ -11,21 +11,18 @@ public class MultiLineString {
 
     private ArrayList<LineString> lineStrings = new ArrayList<>();
 
-    public MultiLineString(ArrayList p, BoundingBox box,int width, int height) {
+    public MultiLineString(ArrayList p, BoundingBox box, int width, int height) {
         for (Object o : p) {
-            this.lineStrings.add(new LineString((ArrayList) o,box,width,height));
+            this.lineStrings.add(new LineString((ArrayList) o, box, width, height));
         }
     }
 
-    public MultiLineString(LineString lineString){
-        this.lineStrings=new ArrayList<>();
+    public MultiLineString(LineString lineString) {
+        this.lineStrings = new ArrayList<>();
         this.lineStrings.add(lineString);
 
 //        System.out.println("-"+lineString);
     }
-
-
-
 
 
     public int getLength() {
@@ -35,7 +32,6 @@ public class MultiLineString {
     public ArrayList<LineString> getLineStrings() {
         return this.lineStrings;
     }
-
 
 
     @Override

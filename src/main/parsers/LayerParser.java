@@ -12,6 +12,7 @@ import java.util.List;
 import main.layers.buildings.Building;
 import main.layers.roads.Road;
 import main.geo.BoundingBox;
+import toxi.geom.Vec3D;
 
 /**
  * Created by dimitris on 4/4/16.
@@ -77,6 +78,18 @@ public class LayerParser {
     }
 
     private void buildBoundingBox() {
+//
+//        for (Road b : this.roads) {
+//            //System.out.println(b);
+//            if (b.getGeometry().getType().equals("LineString")) {
+//                ArrayList tempCoordinages = (ArrayList) b.getGeometry().getCoordinates().get(0);
+//                System.out.println(tempCoordinages.);
+//            }
+//        }
+//        box.sortThem();
+
+
+
         for (Building b : this.buildings) {
             //System.out.println(b);
             if (b.getGeometry().getType().equals("Polygon")) {

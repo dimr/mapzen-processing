@@ -3,6 +3,7 @@ package main.types.roads;
 import toxi.geom.Vec3D;
 import main.geo.BoundingBox;
 
+import javax.sound.sampled.Line;
 import java.util.ArrayList;
 
 /**
@@ -20,6 +21,10 @@ public class LineString {
                 "points=" + points +
                 ", numberOfLineString=" + getNumberOfLineString() +
                 '}';
+    }
+
+    public LineString() {
+
     }
 
     public LineString(ArrayList p) {
@@ -51,6 +56,10 @@ public class LineString {
 //            System.out.println(x + " " + y);
         }
 
+    }
+
+    public void setPoints(ArrayList<Vec3D> points) {
+        this.points = points;
     }
 
 

@@ -31,7 +31,7 @@ public class RoadRenderer {
 //                pa.stroke(255, 0, 0);
 //                pa.point(v.x, v.y);
 //            }
-//            pa.pushStyle();
+            pa.pushStyle();
             pa.stroke(255, 0, 0);
 //            for (int i = 0; i < this.road.getGeometry().getLineString().getNumberOfLineString() ; i++) {
 //                for (int j=0; j<this.road.getGeometry().getLineString().)
@@ -48,6 +48,7 @@ public class RoadRenderer {
                 Vec3D to =points.get(i);
                 pa.line(from.x,from.y,from.z,to.x,to.y,to.z);
                 }
+            pa.popStyle();
             }
 //            }
 //            this.toxi.lineStrip2D(this.road.getGeometry().getLineString().getPoints());
