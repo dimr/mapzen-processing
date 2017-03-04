@@ -1,0 +1,150 @@
+<project name="mapzen" default="run" basedir=".">
+    <description>
+        Mapzen Processing
+    </description>
+
+    <!-- set global properties for this build -->
+    <property name="mapzen" value="mapzen"/>
+    <property name="src" location="src/main/"/>
+    <property name="build" location="build"/>
+    <property name="dist"  location="dist"/>
+    <property name="libs" location="libs"/>
+    <property name="dist" location="dist"/>
+    <property name="data" location="data"/>
+    <property name="saito" location="saito2/code"/>
+
+
+    <target name="init">
+        <!-- Create the time stamp -->
+        <tstamp/>
+        <!-- Create the build directory structure used by compile -->
+        <mkdir dir="${build}"/>
+    </target>
+
+    <!--<path id="build.classpath">-->
+        <!--<fileset dir="${libs}">-->
+            <!--<include name="**.jar" />-->
+        <!--</fileset>-->
+    <!--</path>-->
+
+    <target name="compile" depends="clean,init">
+        <echo> Compiling </echo>
+        <javac includeantruntime="false" srcdir="${src}" destdir="${build}">
+            <classpath refid="classpath" />
+            <!-- <classpath refid="junit.class.path" /> -->
+        </javac>
+    </target>
+
+    <!--<target name="compile" depends="init"-->
+            <!--description="compile the source " >-->
+        <!--&lt;!&ndash; Compile the java code from ${src} into ${build} &ndash;&gt;-->
+        <!--<javac srcdir="${src}" destdir="${build}"/>-->
+
+    <!--</target>-->
+
+    <path id="classpath">
+        <pathelement location="${build}" />
+        <fileset dir="${libs}">
+            <include name="**.jar" />
+            <include name="classes" />
+        </fileset>
+
+    </path>
+
+    <target name="run" depends="compile">
+        <java classname="main.ProcessingMain">
+            <classpath refid="classpath"/>
+            <!--<classpath>-->
+                <!--<pathelement location="${libs}" />-->
+                <!--<path refid="classpath"/>-->
+            <!--</classpath>-->
+        </java>
+    </target>
+
+    <!--Run with optirun, platform dependant-->
+    <target name="optirun" depends="compile">
+        <exec executable="/bin/bash">
+            <arg value="/home/dimitris/workspace/java/random/GSON/run.sh"/>
+            <!--<arg value="/tmp"/>-->
+        </exec>
+    </target>
+
+    <target name="saito" depends="jar">
+        <copy todir="${saito}">
+            <fileset dir="${dist}">
+                <!--Jackson-->
+                <include name="**.jar" />
+            </fileset>
+        </copy>
+    </target>
+
+
+    <target name="copyJars" depends="jar">
+        <copy todir="${dist}">
+            <fileset dir="${libs}">
+                <!--Jackson-->
+                <include name="jackson-annotations-2.7.3.jar" />
+                <include name="jackson-databind-2.7.3.jar" />
+                <include name="jackson-core-2.7.3.jar" />
+                <!--end Jackson-->
+                <!--HttpClient lib-->
+                <include name="httpclient-win-4.5.2.jar" />
+                <include name="httpclient-cache-4.5.2.jar" />
+                <include name="fluent-hc-4.5.2.jar" />
+                <include name="httpmime-4.5.2.jar" />
+                <include name="httpclient-4.5.2.jar" />
+                <include name="httpcore-4.4.4.jar" />
+                <include name="jna-platform-4.1.0.jar" />
+                <include name="jna-4.1.0.jar" />
+                <include name="commons-logging-1.2.jar" />
+                <include name="commons-codec-1.9.jar" />
+                <!--end httpClient-->
+
+                <include name="Unfolding.jar" />
+                <include name="log4j-1.2.15.jar" />
+                <include name="json4processing.jar" />
+                <include name="commons-io-2.4.jar" />
+                <!--<include name="**.jar" />-->
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="jar" depends="compile">
+        <jar destfile="${dist}\${mapzen}.jar" basedir="${build}">
+            <fileset dir="." includes="data/**"/>
+            <!-- <manifest> -->
+            <!-- 	<attribute name="Main-Class" value="test.Main" /> -->
+            <!-- </manifest> -->
+        </jar>
+    </target>
+
+    <target name="cleanDist" description="delete jar files" >
+
+        <!-- Delete the ${build} and ${dist} directory trees -->
+        <delete dir="${dist}" includes="**/*"/>
+
+    </target>
+
+
+    <!--<target name="dist" depends="compile"-->
+            <!--description="generate the distribution" >-->
+
+        <!--&lt;!&ndash; Create the distribution directory &ndash;&gt;-->
+        <!--<mkdir dir="${dist}/lib"/>-->
+
+        <!--&lt;!&ndash; Put everything in ${build} into the {$projectName}-${DSTAMP}.jar file &ndash;&gt;-->
+        <!--<jar jarfile="${dist}/lib/${projectName}-${DSTAMP}.jar" basedir="${build}"/>-->
+    <!--</target>-->
+
+  <!--<target name="compile">-->
+      <!--<javac srcdir="${src}" destdir="${build}"></javac>-->
+  <!--</target>-->
+
+    <target name="clean"
+            description="clean up" >
+
+        <!-- Delete the ${build} and ${dist} directory trees -->
+        <delete dir="${build}"/>
+
+    </target>
+</project>
