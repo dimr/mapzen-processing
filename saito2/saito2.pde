@@ -78,12 +78,12 @@ public void draw() {
   popStyle();
   popMatrix();
   
-println(Arrays.toString(cam.getRotations())+" "+degrees(cam.getRotations()[2]));;
-// for now: renderPolygons(red,green,blue,opacity) -->fill of the buildings, all sides of the building get the same fill color you set here
+//println(Arrays.toString(cam.getRotations())+" "+degrees(cam.getRotations()[2]));;
+//// for now: renderPolygons(red,green,blue,opacity) -->fill of the buildings, all sides of the building get the same fill color you set here
   mapzen.renderPolygons(190, 190, 188, 220);
   
-  // drawGeoRoads(red,green,blue,strokeWeight)
-  mapzen.drawGeoRoads(180, 0, 0, 1);
+//  // drawGeoRoads(red,green,blue,strokeWeight)
+//  mapzen.drawGeoRoads(180, 0, 0, 1);
 }
 
 public void settings() {

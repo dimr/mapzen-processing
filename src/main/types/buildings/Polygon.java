@@ -31,13 +31,13 @@ public class Polygon {
 
     public void toApplicationDimension(BoundingBox box, int width, int height) {
         float geoLeft = box.getLongMin();
-        float geoRigth = box.getLongMax();
+        float geoRight = box.getLongMax();
         float geoTop = box.getLatMin();
         float geoBottom = box.getLatMax();
         ArrayList<Vec2D> temp = new ArrayList<>(this.vecs.size());
         for (int i = 0; i < this.vecs.size(); i++) {
 //            System.out.println(this.vecs.get(i));
-            float x = width * (this.vecs.get(i).x() - geoLeft) / (geoRigth - (geoLeft));
+            float x = width * (this.vecs.get(i).x() - geoLeft) / (geoRight - (geoLeft));
             float y = (height - height * (this.vecs.get(i).y() - geoTop) / (geoBottom - geoTop));
 
 //            temp.add(new Vec2D(x, y));

@@ -28,6 +28,9 @@ public class LayerParser {
 
     public LayerParser(String content, ArrayList<String> layers) {
         this.numberOfLayers = layers.size();
+        System.out.println("Number of layers:  "+ layers);
+        if (this.numberOfLayers!=1)
+            throw new RuntimeException("Ypu can only set **one** layer for now ");
         if (this.numberOfLayers == 1) {
             buildingMapper = new ObjectMapper();
 //            buildingMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
