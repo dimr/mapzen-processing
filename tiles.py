@@ -1,5 +1,5 @@
 import requests
-import requests_cache
+#import requests_cache
 import json
 #requests_cache.install_cache('tiles_cache')
 
@@ -29,9 +29,9 @@ for url in tiles:
     for i in r.json()['features']:
         data.append(json.dumps(i)+'\n')
         #print i['properties'].get('addr_street','-----')
-f=open('data.json','a')
+f=open('data.json','w')
 for i in data:
     f.write(i)
 
-print len(data)
+#print len(data)
 print(data[0])
